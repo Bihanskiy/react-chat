@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/react-chat/static/css/main.b5d69c5c.css",
+    "main.js": "/react-chat/static/js/main.97faee97.js",
+    "static/media/error.gif": "/react-chat/static/media/error.b52e9354519ff3abce32.gif",
+    "static/media/photo-1.jpg": "/react-chat/static/media/photo-1.49e43bd6b7ef7a32b833.jpg",
+    "static/media/man-svgrepo-com.svg": "/react-chat/static/media/man-svgrepo-com.9a9b266c2c693c71c3daec377c2eb8f3.svg",
+    "static/media/icons.svg?csuvdr": "/react-chat/static/media/icons.3ea18bf782fab7ca919c.svg",
+    "static/media/icons.eot?csuvdr": "/react-chat/static/media/icons.103e9402f347bef695c1.eot",
+    "static/media/icons.woff?csuvdr": "/react-chat/static/media/icons.60eafc47b932568a4d15.woff",
+    "static/media/icons.ttf?csuvdr": "/react-chat/static/media/icons.74d502875bef9666193c.ttf",
+    "index.html": "/react-chat/index.html",
+    "main.b5d69c5c.css.map": "/react-chat/static/css/main.b5d69c5c.css.map",
+    "main.97faee97.js.map": "/react-chat/static/js/main.97faee97.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b5d69c5c.css",
+    "static/js/main.97faee97.js"
+  ]
+}
