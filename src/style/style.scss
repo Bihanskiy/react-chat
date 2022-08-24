@@ -2,7 +2,6 @@
 
 @import "./variables.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@200;300;400;500;600;700;800&display=swap");
-// @import "./container.scss";
 @import "./mixins.scss";
 @import "./null.scss";
 @import "./icons.scss";
@@ -10,14 +9,15 @@
 
 @import "../components/leftColumnContacts/leftColumnContacts.scss";
 @import "../components/rightColumnMessages/rightColumnMessages.scss";
-
+@import "../components/login/login.scss";
 
 body {
     display: grid;
     grid-template-rows: 1fr;
 }
-
 .app {
+}
+.wrapper {
     display: grid;
     height: 100%;
     grid-template-columns: auto 1fr;

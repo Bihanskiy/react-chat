@@ -199,6 +199,24 @@
     }
 }
 
+.messages-enter {
+    opacity: 0;
+}
+
+.messages-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.messages-exit {
+    opacity: 1;
+}
+
+.messages-exit-active {
+    opacity: 0;
+    transition: opacity 0ms;
+}
+
 //======sending-message==================================================================================================================================================
 
 .message-input {

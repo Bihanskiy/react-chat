@@ -88,6 +88,23 @@
         color: $grey;
         cursor: pointer;
     }
+
+    &__tent {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__exit-button {
+        cursor: pointer;
+        transition: background-color ease 0.5s;
+        padding: rem(10);
+        border-radius: rem(22);
+        // background-color: transparent;
+        &:hover {
+            background-color: $lighter-grey;
+        }
+    }
 }
 
 .avatar {
@@ -192,4 +209,22 @@
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+}
+
+.contacts-enter {
+    opacity: 0;
+}
+
+.contacts-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.contacts-exit {
+    opacity: 1;
+}
+
+.contacts-exit-active {
+    opacity: 0;
+    transition: opacity 500ms ease-in;
 }
