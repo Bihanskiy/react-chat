@@ -2,25 +2,23 @@ import ErrorBoundary from '../errorBoundary/ErrorBoundary';
 import MainPage from '../pages/MainPage.js';
 import ChatProvider from "../chatContext/ChatProvider.js"
 
-import { useEffect, useState } from 'react';
-import { Routes, Route, useNavigate } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import GoogleAuth from '../login/Login.js';
+import { GuardedRoutePrivate, GuardedRouteLogin } from './GuardedRoutes';
+
+
 function App() {
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    const User = localStorage.getItem('user') !== 'undefined' ? JSON.parse(localStorage.getItem('user')) : localStorage.clear();
-
-    if (!User) navigate('/login');
-  }, [navigate]);
 
   return (
     <ErrorBoundary>
       <ChatProvider>
         <Routes>
-          <Route path='login' element={<GoogleAuth />} />
-          <Route path='/*' element={<MainPage />} />
+          <Route path='/login' element={<GuardedRouteLogin />}>
+            <Route path='/login' element={<GoogleAuth />} />
+          </Route>
+          <Route path='/react-chat' element={<GuardedRoutePrivate />}>
+            <Route path='/react-chat' element={<MainPage />} />
+          </Route>
         </Routes>
       </ChatProvider>
     </ErrorBoundary>

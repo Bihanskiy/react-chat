@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import jwt_decode from "jwt-decode";
+import { GOOGLE_KEY } from './Keys';
 
 const loadScript = (src) =>
     new Promise((resolve, reject) => {
@@ -13,13 +14,12 @@ const loadScript = (src) =>
     })
 
 const GoogleAuth = () => {
-    const [user, setUser] = useState({});
     const googleButton = useRef(null);
     const navigate = useNavigate();
 
     useEffect(() => {
         const src = 'https://accounts.google.com/gsi/client'
-        const id = "198144647780-6o3mqlqfjbeeksv3qi5qhv54idtkqesg.apps.googleusercontent.com"
+        const id = GOOGLE_KEY;
 
         loadScript(src)
             .then(() => {
@@ -43,9 +43,8 @@ const GoogleAuth = () => {
 
     function handleCredentialResponse(response) {
         let userObject = jwt_decode(response.credential);
-        setUser(userObject);
         localStorage.setItem('user', JSON.stringify(userObject));
-        navigate('/', { replace: true });
+        navigate('/react-chat', { replace: true });
     }
 
     return (

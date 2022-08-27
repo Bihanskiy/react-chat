@@ -60,12 +60,33 @@
         width: 100%;
         position: relative;
         color: $black;
+        button {
+            position: absolute;
+            top: 50%;
+            right: 3%;
+            margin: 0;
+            padding: 0;
+            font-size: rem(17);
+            color: $grey;
+            transform: translateY(-50%);
+            cursor: pointer;
+            opacity: 0;
+            transition: all 0.5s ease;
+            background-color: transparent;
+            width: rem(25);
+            height: rem(25);
+            border-radius: 50px;
+            &:hover {
+                background-color: $lighter-grey;
+            }
+        }
     }
 
     // .left-header__search-input
 
     &__search-input {
         height: rem(40);
+        position: relative;
         width: 100%;
         border: 1px solid $lighter-grey;
         border-radius: rem(22);
@@ -93,6 +114,17 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
+    }
+
+    &__wrapper {
+        display: flex;
+        gap: rem(25);
+    }
+
+    &__name {
+        h2 {
+            font-size: rem(23);
+        }
     }
 
     &__exit-button {
@@ -140,6 +172,7 @@
     // .chat-list__container
 
     &__container {
+        padding: 0 rem(15);
         overflow-y: auto;
         overflow-x: hidden;
     }
@@ -152,10 +185,15 @@
     // .chat-list__info
 
     &__info {
+        display: flex;
+        gap: rem(5);
+        flex-direction: column;
+        width: 100%;
+        margin-left: rem(15);
     }
 }
 .list-item {
-    padding: rem(25) rem(15);
+    padding: rem(25) 0;
     border-bottom: 1px solid $lighter-grey;
     // .list-item__button
 
@@ -179,18 +217,22 @@
     }
 }
 .info {
-    width: 100%;
-    margin-left: rem(15);
 }
 .info-title {
     display: flex;
     justify-content: space-between;
     h3 {
         font-weight: 400;
-        max-width: 65%;
+        max-width: 220px;
         white-space: nowrap;
         overflow: hidden;
         text-overflow: ellipsis;
+        @media (min-width: 1240px) {
+            max-width: 16vw;
+        }
+        @media (max-width: 600px) {
+            max-width: 45vw;
+        }
     }
 }
 .last-message-time {
@@ -200,15 +242,33 @@
     font-weight: 300;
     margin-left: rem(10);
 }
+
 .info-subtitle {
+    display: flex;
+    justify-content: space-between;
     color: $grey;
+
+    &__messages-counter {
+        display: block;
+        background-color: $white-blue;
+        border-radius: 50px;
+        text-align: center;
+        font-size: rem(15);
+        color: $white;
+        width: rem(23);
+        height: rem(23);
+    }
 }
+
 .last-message {
     display: inline-block;
-    max-width: 70%;
+    max-width: 255px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    @media (max-width: $mobileSmall) {
+        max-width: 225px;
+    }
 }
 
 .contacts-enter {

@@ -81,40 +81,39 @@
             transition: all 0.3s ease 0s;
             right: 0;
             position: absolute;
-            width: 50%;
+            width: 0;
             height: rem(2);
             background-color: $grey;
         }
+        &::before,
+        &::after {
+            width: 100%;
+        }
         &::before {
-            top: calc(30% - rem(1));
-            left: 0;
-            transform: rotate(-30deg);
-            width: 50%;
+            top: calc(50% - rem(1));
+            transform: rotate(-45deg);
         }
         &::after {
-            bottom: calc(25% - rem(1));
-            left: 0;
-            transform: rotate(30deg);
-            width: 50%;
+            bottom: calc(50% - rem(1));
+            transform: rotate(45deg);
         }
-        span {
-            top: calc(50% - rem(1));
-        }
+
         .left-column-open & {
-            span {
-                width: 0;
-            }
-            &::before,
-            &::after {
-                width: 100%;
-            }
             &::before {
-                top: calc(50% - rem(1));
-                transform: rotate(-45deg);
+                top: calc(30% - rem(1));
+                left: 0;
+                transform: rotate(-30deg);
+                width: 50%;
             }
             &::after {
-                bottom: calc(50% - rem(1));
-                transform: rotate(45deg);
+                bottom: calc(25% - rem(1));
+                left: 0;
+                transform: rotate(30deg);
+                width: 50%;
+            }
+            span {
+                top: calc(50% - rem(1));
+                width: 50%;
             }
         }
     }
@@ -127,7 +126,7 @@
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
-    padding: rem(20) rem(15);
+    padding: rem(20) rem(15) rem(0) rem(15);
     border-bottom: 2px solid $lighter-grey;
     // .messages-list__group
 
@@ -137,6 +136,8 @@
     // .messages-list__item
 
     &__item {
+    }
+    &__end {
     }
 }
 .message {

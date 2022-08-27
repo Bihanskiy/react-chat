@@ -1,15 +1,16 @@
-import LeftColumnContacts from '../leftColumnContacts/LeftColumnContacts';
-import RightColumnMessages from '../rightColumnMessages/RightColumnMessages';
-import { useChatContext } from "../chatContext/hooks";
+import LeftColumnContacts from '../сontactsColumn/ContactsColumn';
+import RightColumnMessages from '../messagesColumn/MessagesColumn';
+import { useContactId, useGetOpenBurger } from "../chatContext/hooks";
 
 function MainPage() {
-    const { contactCorrespond } = useChatContext();
+    const contactId = useContactId();
+    const openBurger = useGetOpenBurger();
 
     return (
         <div className="app">
-            <div className="wrapper left-column-open">
+            <div className={"wrapper " + (openBurger ? 'left-column-open' : "")}>
                 <LeftColumnContacts />
-                { contactCorrespond ? <RightColumnMessages /> : null}
+                {contactId ? <RightColumnMessages /> : null}
             </div>
         </div>
     )
