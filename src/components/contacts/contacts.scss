@@ -92,7 +92,7 @@
         border-radius: rem(22);
         background-color: $white;
         padding-left: 40px;
-        padding-right: 20px;
+        padding-right: 55px;
         &:focus::placeholder {
             color: transparent;
         }
@@ -124,6 +124,12 @@
     &__name {
         h2 {
             font-size: rem(23);
+            @media (max-width: $mobile) {
+                font-size: rem(18);
+            }
+            @media (max-width: $mobileSmall) {
+                font-size: rem(16);
+            }
         }
     }
 

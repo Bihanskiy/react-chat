@@ -1,4 +1,5 @@
 import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { ChatContext } from './ChatProvider.js';
 
@@ -9,41 +10,33 @@ export const useChatContext = () => {
     return useContext(ChatContext);
 }
 
-//=======User=================================================================================================================================================
-
-export const useGetUser = () => {
-    const { user } = useChatContext();
-
-    return user;
-};
-
 //========Contacts================================================================================================================================================
 
-export const useContacts = () => {
+export const useAllContacts = () => {
     const { allContacts } = useChatContext();
 
     return allContacts;
 };
 
-export const useSetContacts = () => {
-    const { setContacs } = useChatContext();
+export const useSetAllContacts = () => {
+    const { setAllContacts } = useChatContext();
 
-    return setContacs;
+    return setAllContacts;
 };
 
-export const useContactId = () => {
-    const { contactId } = useChatContext();
-    return contactId;
+export const useActiveContactId = () => {
+    const { activeContactId } = useChatContext();
+    return activeContactId;
 }
 
-export const useGetContactId = () => {
-    const { getContactId } = useChatContext();
+export const useSetActiveContactId = () => {
+    const { setActiveContactId } = useChatContext();
 
-    return getContactId;
+    return setActiveContactId;
 }
 
 export const useContactsList = () => {
-    const contacts = useContacts();
+    const contacts = useAllContacts();
     const getLastMessage = useGetLastMessage();
 
     return contacts
@@ -66,10 +59,10 @@ export const useNameSearch = () => {
     return nameSearch;
 };
 
-export const useSetSearchName = () => {
-    const { setSearchName } = useChatContext();
+export const useSetNameSearch = () => {
+    const { setNameSearch } = useChatContext();
 
-    return setSearchName;
+    return setNameSearch;
 };
 
 //========Messages===============================================================================================================================================
@@ -80,31 +73,22 @@ export const useGetAllMessages = () => {
     return allMessages;
 };
 
-export const useSetMessages = () => {
-    const { setMessages } = useChatContext();
+export const useSetAllMessages = () => {
+    const { setAllMessages } = useChatContext();
 
-    return setMessages;
+    return setAllMessages;
 };
 
-export const useCountNewMessageData = () => {
-    const { countNewMessageData } = useChatContext();
+export const useCountNewMessage = () => {
+    const { countNewMessages } = useChatContext();
 
-    return countNewMessageData;
+    return countNewMessages;
 }
 
-export const useSetCountNewMessageData = () => {
-    const { setNumNewMessageData } = useChatContext();
+export const useSetCountNewMessages = () => {
+    const { setCountNewMessages } = useChatContext();
 
-    return setNumNewMessageData;
-}
-
-export const useUpdateStateCountMessageData = () => {
-    const countNewMessageData = useCountNewMessageData();
-    const setCountNewMessageData = useSetCountNewMessageData();
-    return (id) => {
-        setCountNewMessageData((countNewMessageData) => ({ ...countNewMessageData, [id]: 0 }));
-        localStorage.setItem("newMessagesCountData", JSON.stringify(countNewMessageData));
-    }
+    return setCountNewMessages;
 }
 
 export const useGetLastMessage = () => {
@@ -130,8 +114,7 @@ export const useGetLastMessage = () => {
 }
 
 export const useAddMessage = () => {
-    const setMessages = useSetMessages();
-    const setCountNewMessage = useSetCountNewMessageData();
+    const setMessages = useSetAllMessages();
 
     function newMessage(oldAllMessages, id, newMessage) {
         return { ...oldAllMessages, [id]: [...oldAllMessages[id], newMessage] }
@@ -143,65 +126,60 @@ export const useAddMessage = () => {
             id: uuidv4(),
             type,
             time: Date.now(),
+            read: true,
         }
-        if (type === "received") setCountNewMessage((countNewMessageData) => ({ ...countNewMessageData, [id]: countNewMessageData[id] + 1 }));
+        if (type === "received") message.read = false;
 
         setMessages((allMessages) => newMessage(allMessages, id, message));
 
     }
 }
 
-//========Reply================================================================================================================================================
+export const useViewUnreadMessages = () => {
+    const allMessages = useGetAllMessages();
+    const setMessages = useSetAllMessages();
 
-export const useReplyJok = () => {
-    const { replyJok } = useChatContext();
+    return (id) => {
+        const viewMessages = allMessages[id].map(message => {
+            if (message.read = true) return message;
+            return {
+                ...message,
+                ["read"]: true
+            }
+        });
 
-    return replyJok;
+        setMessages((allMessages) => ({ ...allMessages, [id]: [...viewMessages] }))
+    }
 }
 
-export const useFetchReplyJok = () => {
-    const { fetchReplyJok } = useChatContext();
+export const useGetCountUnreadMessages = () => {
+    const allMessages = useGetAllMessages();
 
-    return fetchReplyJok;
+    return (id) => {
+        let count = 0;
+        const arrMessages = allMessages[id];
+
+        for (let i = 0; i < arrMessages.length; i++) {
+            const element = arrMessages[i];
+            if (!element.read) {
+                count++;
+            }
+        }
+        return count;
+    }
 }
 
 //========Navigation================================================================================================================================================
 
-export const uselogout = () => {
-    return (navigate) => {
-        localStorage.clear();
+export const useLogout = () => {
+    const navigate = useNavigate()
+    return () => {
+        localStorage.removeItem("user");
 
         navigate('/login');
     }
 };
 
-//=========Tools===============================================================================================================================================
-
-export const useGetConvertedTimeContact = (timestamp) => {
-    let a = new Date(timestamp);
-    let months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    let year = a.getFullYear();
-    let month = months[a.getMonth()];
-    let date = a.getDate();
-    let time = month + ' ' + date + ', ' + year;
-    return time;
-}
-
-export const useGetConvertedTimeMessage = (timestamp) => {
-    var options = { hour: "2-digit", minute: "2-digit" };
-    var time = new Date(timestamp).toLocaleDateString("en-US", options)
-    return time;
-}
-
-export const useGetValueFromKey = () => {
-    return (arr, id, key) => {
-        for (const item of arr) {
-            if (item.id === id) {
-                return item[key];
-            }
-        }
-    }
-}
 
 //=======Burger=================================================================================================================================================
 
@@ -212,9 +190,9 @@ export const useGetOpenBurger = () => {
 }
 
 export const useSetOpenBurger = () => {
-    const { setBurger } = useChatContext();
+    const { setOpenBurger } = useChatContext();
 
-    return setBurger;
+    return setOpenBurger;
 }
 
 //======Media-query-==================================================================================================================================================

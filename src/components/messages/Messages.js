@@ -1,66 +1,111 @@
-import { useEffect, useState, useRef } from "react";
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useActiveContactId, useAllContacts, useAddMessage, useSetOpenBurger, useGetOpenBurger } from "../chatContext/hooks";
+import { useHttp } from "../../httpHooks/http.hook";
+import { URL_REQUEST } from "../../httpHooks/requestKeys";
 
-import { useContactId, useGetAllMessages, useGetValueFromKey, useContacts } from "../chatContext/hooks";
+import { getValueFromKey } from "../../utils/getValueFromKey";
 
-import MessageComponents from "./ReceivedMessage.js";
-import OwnMessageComponents from "./SentMessage.js";
+import MessagesList from "./MessagesList";
+import { useState } from "react";
 
-const Messages = () => {
+function Messages() {
+    const { request } = useHttp();
 
-    const contacts = useContacts();
-    const contactId = useContactId();
+    const allContacts = useAllContacts();
+    const activeContactId = useActiveContactId();
 
-    const allMessages = useGetAllMessages();
+    const addMessage = useAddMessage();
 
-    const [contactMessages, setContactMessages] = useState([]);
+    const openBurger = useGetOpenBurger();
+    const setOpenBurger = useSetOpenBurger();
 
-    const getValueFromKey = useGetValueFromKey();
-    const avatarImg = getValueFromKey(contacts, contactId, "avatarImg");
 
-    const messagesEndRef = useRef(null);
+    const avatarImg = getValueFromKey(allContacts, activeContactId, "avatarImg");
+    const contactName = getValueFromKey(allContacts, activeContactId, "name");
 
-    const scrollToBottom = () => {
-        messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
-    };
+    const [sendMessage, setSendMessage] = useState("");
 
-    useEffect(() => {
-        setContactMessages(allMessages[contactId]);;
-        localStorage.setItem("messages", JSON.stringify(allMessages));
-        setTimeout(scrollToBottom, 0);
-    }, [contactId, allMessages]);
-
-    const renderMessageList = (arr) => {
-        if (arr.length === 0) {
-            return (
-                <CSSTransition
-                    timeout={0}
-                    classNames="messages">
-                    <h5>There are no messages</h5>
-                </CSSTransition>
-            )
-        }
-
-        return arr.map(({ text, time, type, id }) => {
-            return (
-                <CSSTransition
-                    key={id}
-                    timeout={200}
-                    classNames="messages">
-                    {type === "sent" ? <OwnMessageComponents text={text} time={time} /> : <MessageComponents text={text} time={time} avatarImg={avatarImg} />}
-                </CSSTransition>
-            )
-        })
+    const handleTypingMessage = (event) => {
+        setSendMessage(event.target.value);
     }
 
-    const messageList = renderMessageList(contactMessages);
+    const handleSubmitMessage = (event) => {
+        event.preventDefault();
+
+        if (!sendMessage.length) return;
+
+        addMessage(sendMessage, 'sent', activeContactId);
+
+        const getFakeMessage = () => new Promise((resolve) => {
+            setTimeout(async () => {
+                const joke = await request(URL_REQUEST);
+                resolve(joke.value);
+            }, 3000);
+        })
+
+        getFakeMessage().then((jokeValue) => addMessage(jokeValue, "received", activeContactId));
+
+        setSendMessage("");
+    };
+
+    const onToggleBurger = (e) => {
+        e.preventDefault();
+        setOpenBurger(!openBurger)
+    }
 
     return (
-        <div className="messages-list__group">
-            <TransitionGroup component="div">
-                {messageList}
-            </TransitionGroup>
-            <div className="messages-list__end" ref={messagesEndRef} />
+        <div className="right-column">
+            <div className="messages-layout">
+                <div className="messages-layout__header layout-header">
+                    {/* head */}
+                    <div className="layout-header__info">
+                        <div className="layout-header__menu menu">
+                            <button
+                                type="button"
+                                className="menu__icon icon-menu"
+                                onClick={onToggleBurger}
+                            >
+                                <span className="icon-menu__line"></span>
+                            </button>
+                        </div>
+                        <div className='avatar'>
+                            <img src={avatarImg} alt="User's avatar" className='avatar__img' />
+                            <i className="icon-check"></i>
+                        </div>
+                        <div className='layout-header__title'>
+                            <h3>{contactName}</h3>
+                        </div>
+                    </div>
+                </div>
+                {/* message list */}
+                <div className="messages-list">
+                    <div className="messages-container">
+                        <MessagesList />
+                    </div>
+                </div>
+                {/* send message */}
+                <div className="message-input">
+                    <div className="message-input-wrapper">
+                        <div className="messages-container">
+                            <form onSubmit={handleSubmitMessage}>
+                                <input
+                                    type="text"
+                                    placeholder='Type your message'
+                                    dir='auto'
+                                    autoComplete='off'
+                                    className='message-input-text'
+                                    value={sendMessage}
+                                    onChange={handleTypingMessage}
+                                    onSubmit={handleSubmitMessage}
+                                />
+                                <button
+                                    type="submit"
+                                    className='icon-send'>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     )
 }

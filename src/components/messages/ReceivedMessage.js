@@ -1,8 +1,6 @@
-import { useGetConvertedTimeMessage } from "../chatContext/hooks";
+import { getConvertedTimeMessage } from "../../utils/getConvertedTime";
 
 function MessageComponents({ text, time, avatarImg }) {
-
-    const getConvertedTimeMessage = useGetConvertedTimeMessage(time);
 
     return (
         <div className="messages-list__item message">
@@ -12,7 +10,7 @@ function MessageComponents({ text, time, avatarImg }) {
                 </div>
                 <p className="message__content">{text}</p>
             </div>
-            <div className="message__time">{getConvertedTimeMessage}</div>
+            <div className="message__time">{getConvertedTimeMessage(time)}</div>
         </div>
     )
 }

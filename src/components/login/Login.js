@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect, useRef} from 'react';
 import jwt_decode from "jwt-decode";
-import { GOOGLE_KEY } from './Keys';
+
+import { loginButtonFeatures } from '../../utils/loginButtonFeatures.js';
+import { useNavigate } from 'react-router-dom';
+
+import { GOOGLE_KEY, URL } from './Keys';
 
 const loadScript = (src) =>
     new Promise((resolve, reject) => {
-        if (document.querySelector(`script[src="${src}"]`)) return resolve()
         const script = document.createElement('script')
         script.src = src
         script.onload = () => resolve()
@@ -18,22 +20,12 @@ const GoogleAuth = () => {
     const navigate = useNavigate();
 
     useEffect(() => {
-        const src = 'https://accounts.google.com/gsi/client'
+        const src = URL;
         const id = GOOGLE_KEY;
 
-        loadScript(src)
-            .then(() => {
-                /*global google*/
-                google.accounts.id.initialize({
-                    client_id: id,
-                    callback: handleCredentialResponse,
-                })
-                google.accounts.id.renderButton(
-                    googleButton.current,
-                    { theme: 'outline', size: 'large' }
-                )
-            })
-            .catch(console.error)
+        if (document.querySelector(`script[src="${src}"]`)) return;
+
+        loginButtonFeatures(loadScript, googleButton, src, id, handleCredentialResponse)
 
         return () => {
             const scriptTag = document.querySelector(`script[src="${src}"]`)

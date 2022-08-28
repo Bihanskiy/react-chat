@@ -1,52 +1,81 @@
-import { useMemo, useDeferredValue } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { useNavigate } from "react-router-dom";
 
-import { useContactsList, useNameSearch } from "../chatContext/hooks";
-import ContactItem from "../contacts/ContactItem";
+import { useLogout, useNameSearch, useSetNameSearch } from "../chatContext/hooks";
+import { getDataFromStorage } from '../../utils/getDataFromStorage.js';
 
-const ContactsList = () => {
+import ContactsList from './ContactsList.js';
 
-    const contactsList = useContactsList();
+function Contacts() {
+    const navigate = useNavigate();
+
+    const {userData} = getDataFromStorage();
+    const logout = useLogout();
 
     const nameSearch = useNameSearch();
+    const setNameSearch = useSetNameSearch();
 
-    const deferredValue = useDeferredValue(nameSearch);
-
-    const filteredContacts = useMemo(() => {
-        return contactsList.filter(item => item.name.toLowerCase().includes(deferredValue.toLowerCase()));
-    }, [deferredValue, contactsList])
-
-    const renderContactsList = (arr) => { //component
-        if (arr.length === 0) {
-            return (
-                <CSSTransition
-                    timeout={0}
-                    classNames="contacts">
-                    <h5>There are no contacts</h5>
-                </CSSTransition>
-            )
-        }
-
-        return arr.map(({ id, ...ContactInformation }) => {
-            return (
-                <CSSTransition
-                    key={id}
-                    timeout={100}
-                    classNames="contacts">
-                    <ContactItem {...ContactInformation} id={id} />
-                </CSSTransition>
-            )
-        })
+    const onNameSearch = (e) => {
+        setNameSearch(e.target.value)
     }
 
-    const contacts = renderContactsList(filteredContacts);
+    const onDeleteNameSearch = (e) => {
+        e.preventDefault();
+        console.log('sdf');
+        setNameSearch('');
+    }
+
     return (
-        <div className="chat-list__container">
-            <TransitionGroup component="div">
-                {contacts}
-            </TransitionGroup>
+        <div className='left-column'>
+            <div className='left-column__main left-main'>
+                <div className="left-main__header left-header">
+                    <div className="left-header__container">
+                        <div className="left-header__tent">
+                            <div className="left-header__wrapper">
+                                <div className='avatar'>
+                                    <img src={userData.picture} alt="User's avatar" className='avatar__img' />
+                                    <i className="icon-check"></i>
+                                </div>
+                                <div className="left-header__name">
+                                    <h2>{`${userData.given_name} ${userData.family_name}`}</h2>
+                                </div>
+                            </div>
+                            <div className="left-header__exit">
+                                <button
+                                    type="button"
+                                    className="left-header__exit-button"
+                                    onClick={() => logout(navigate)}
+                                >Log out</button>
+                            </div>
+                        </div>
+                        <div className='left-header__search'>
+                            <input
+                                type="text"
+                                placeholder='Search or start new chat'
+                                dir='auto'
+                                autoComplete='off'
+                                className='left-header__search-input'
+                                value={nameSearch}
+                                onChange={onNameSearch}
+                            />
+                            <i className='left-header__icon icon-search'></i>
+                            <button
+                                style={nameSearch ? { "opacity": "1" } : { "opacity": "0" }}
+                                onClick={onDeleteNameSearch}
+                            >
+                                <span>X</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div className="left-main__title">
+                    <h2 className='left-main__title-text'>Chats</h2>
+                </div>
+                <div className='chat-list'>
+                    <ContactsList />
+                </div>
+            </div>
         </div>
     )
 }
 
-export default ContactsList;
+export default Contacts;

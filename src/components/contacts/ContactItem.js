@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
-import { useContactId, useGetContactId, useGetConvertedTimeContact, useSetOpenBurger, useGetOpenBurger, useGetMatches, useNameSearch, useSetSearchName, useCountNewMessageData, useSetCountNewMessageData, useUpdateStateCountMessageData } from "../chatContext/hooks";
-
-
+import { useActiveContactId, useSetActiveContactId, useGetCountUnreadMessages, useSetOpenBurger, useGetOpenBurger, useGetMatches, useNameSearch, useSetNameSearch, useViewUnreadMessages } from "../chatContext/hooks";
+import { getConvertedTimeContact } from "../../utils/getConvertedTime";
 
 function ContactItem(props) {
     const {
@@ -9,16 +8,14 @@ function ContactItem(props) {
         time,
         text,
         avatarImg,
-        id
+        id,
     } = props;
 
-    const contactId = useContactId();
-    const getContactId = useGetContactId();
+    const activeContactId = useActiveContactId();
+    const setActiveContactId = useSetActiveContactId();
 
-    const countNewMessageData = useCountNewMessageData();
-    const updateStateCountMessageData = useUpdateStateCountMessageData();
-
-    const convertedTime = useGetConvertedTimeContact(time);
+    const countUnreadMessages = useGetCountUnreadMessages();
+    const viewUnreadMessages = useViewUnreadMessages();
 
     const openBurger = useGetOpenBurger();
     const setOpenBurger = useSetOpenBurger();
@@ -26,29 +23,35 @@ function ContactItem(props) {
     const matches = useGetMatches();
 
     const nameSearch = useNameSearch();
-    const setSearchName = useSetSearchName();
+    const setNameSearch = useSetNameSearch();
+
+    const [count, setCount] = useState(countUnreadMessages(id));
 
     useEffect(() => {
-        if (id !== contactId) return;
-        updateStateCountMessageData(id);
+        if (id === activeContactId) {
+            viewUnreadMessages(id);
+            setCount(countUnreadMessages(id));
+
+        } else if (id !== activeContactId) {
+            setCount(countUnreadMessages(id));
+        }
     }, [text])
 
-    const onHandlerId = (itemId) => {
-        getContactId(itemId);
+    const handlerClick = (itemId) => {
+        setActiveContactId(itemId);
 
         matches && setOpenBurger(!openBurger);
 
-        if (nameSearch) setSearchName("");
+        if (nameSearch) setNameSearch("");
 
-        if (countNewMessageData[itemId]) {
-            updateStateCountMessageData(id);
-        }
+        viewUnreadMessages(itemId);
+        setCount(countUnreadMessages(itemId));
     }
 
 
     return (
         <div className="chat-list__item list-item">
-            <div className="list-item__button" role="button" tabIndex="0" onClick={() => onHandlerId(id)} >
+            <div className="list-item__button" role="button" tabIndex="0" onClick={() => handlerClick(id)} >
                 <div className='avatar'>
                     <img src={avatarImg} alt="Avatar of chat item" className='avatar__img' />
                     <i className="icon-check"></i>
@@ -57,12 +60,12 @@ function ContactItem(props) {
                     <div className="info-title">
                         <h3>{name}</h3>
                         <div className='last-message-time'>
-                            <span className='time'>{convertedTime}</span>
+                            <span className='time'>{getConvertedTimeContact(time)}</span>
                         </div>
                     </div>
                     <div className='info-subtitle'>
                         <p className="last-message">{text}</p>
-                        <span className="info-subtitle__messages-counter" style={{ "display": countNewMessageData[id] ? "block" : "none" }}>{countNewMessageData[id]}</span>
+                        <span className="info-subtitle__messages-counter" style={{ "display": count ? "block" : "none" }}>{count}</span>
                     </div>
                 </div>
             </div>
@@ -71,5 +74,3 @@ function ContactItem(props) {
 }
 
 export default ContactItem;
-
-// 

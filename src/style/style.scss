@@ -7,16 +7,15 @@
 @import "./icons.scss";
 @import "./common.scss";
 
-@import "../components/сontactsColumn/contactsColumn.scss";
-@import "../components/messagesColumn/messagesColumn.scss";
+@import "../components/contacts/contacts.scss";
+@import "../components/messages/messages.scss";
 @import "../components/login/login.scss";
 
 body {
     display: grid;
     grid-template-rows: 1fr;
 }
-.app {
-}
+
 .wrapper {
     display: grid;
     height: 100%;
