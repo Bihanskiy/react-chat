@@ -48,7 +48,6 @@ function ContactItem(props) {
         setCount(countUnreadMessages(itemId));
     }
 
-
     return (
         <div className="chat-list__item list-item">
             <div className="list-item__button" role="button" tabIndex="0" onClick={() => handlerClick(id)} >

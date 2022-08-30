@@ -16,7 +16,7 @@ const ContactsList = () => {
         return contactsList.filter(item => item.name.toLowerCase().includes(deferredValue.toLowerCase()));
     }, [deferredValue, contactsList])
 
-    const renderContactsList = (arr) => { //component
+    const renderContactsList = (arr) => { 
         if (arr.length === 0) {
             return (
                 <CSSTransition

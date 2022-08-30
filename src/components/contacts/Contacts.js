@@ -20,7 +20,6 @@ function Contacts() {
 
     const onDeleteNameSearch = (e) => {
         e.preventDefault();
-        console.log('sdf');
         setNameSearch('');
     }
 
