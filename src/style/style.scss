@@ -12,13 +12,28 @@
 @import "../components/login/login.scss";
 
 body {
+    display: -ms-grid;
     display: grid;
+    -ms-grid-rows: 1fr;
     grid-template-rows: 1fr;
 }
 
 .wrapper {
+    display: -ms-grid;
     display: grid;
     height: 100%;
+    -ms-grid-columns: auto 1fr;
     grid-template-columns: auto 1fr;
+    -ms-grid-rows: 100%;
     grid-template-rows: 100%;
+}
+
+.wrapper > *:nth-child(1) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 1;
+}
+
+.wrapper > *:nth-child(2) {
+    -ms-grid-row: 1;
+    -ms-grid-column: 2;
 }

@@ -25,7 +25,6 @@ const ChatProvider = ({ children }) => {
     const [nameSearch, setNameSearch] = useState('');
 
     const [allMessages, setAllMessages] = useState([]);
-    const [countNewMessages, setCountNewMessages] = useState({});
 
     const [openBurger, setOpenBurger] = useState(true);
 
@@ -46,7 +45,7 @@ const ChatProvider = ({ children }) => {
     return (
         <ChatContext.Provider
             value={
-                { activeContactId, setActiveContactId, setAllContacts, allContacts, allMessages, setAllMessages, nameSearch, setNameSearch, openBurger, setOpenBurger, matches, countNewMessages, setCountNewMessages }
+                { activeContactId, setActiveContactId, setAllContacts, allContacts, allMessages, setAllMessages, nameSearch, setNameSearch, openBurger, setOpenBurger, matches }
             }
         >{children}</ChatContext.Provider>
     )

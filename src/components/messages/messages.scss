@@ -1,5 +1,9 @@
 .right-column {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
     justify-content: center;
     height: 100%;
     position: relative;
@@ -13,16 +17,23 @@
         top: 0;
         bottom: 0;
         right: 0;
+        -webkit-transform: translate3d(0, 0, 0);
         transform: translate3d(0, 0, 0);
+        -webkit-transition: -webkit-transform ease 0.5s;
+        transition: -webkit-transform ease 0.5s;
+        -o-transition: transform ease 0.5s;
         transition: transform ease 0.5s;
+        transition: transform ease 0.5s, -webkit-transform ease 0.5s;
     }
 }
 .left-column-open {
     .right-column {
         @media (max-width: $tablet) {
+            -webkit-transform: translate3d(rem(424), 0, 0);
             transform: translate3d(rem(424), 0, 0);
         }
         @media (max-width: 600px) {
+            -webkit-transform: translate3d(100vw, 0, 0);
             transform: translate3d(100vw, 0, 0);
         }
     }
@@ -30,8 +41,15 @@
 //=======right-header=================================================================================================================================================
 
 .messages-layout {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
     align-items: center;
     width: 100%;
     height: 100vh;
@@ -50,8 +68,14 @@
 
     // .layout-header__info
     &__info {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
+        -webkit-box-pack: start;
+        -ms-flex-pack: start;
         justify-content: flex-start;
         gap: rem(15);
     }
@@ -78,6 +102,8 @@
         &::before,
         &::after {
             content: "";
+            -webkit-transition: all 0.3s ease 0s;
+            -o-transition: all 0.3s ease 0s;
             transition: all 0.3s ease 0s;
             right: 0;
             position: absolute;
@@ -91,10 +117,14 @@
         }
         &::before {
             top: calc(50% - rem(1));
+            -webkit-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
             transform: rotate(-45deg);
         }
         &::after {
             bottom: calc(50% - rem(1));
+            -webkit-transform: rotate(45deg);
+            -ms-transform: rotate(45deg);
             transform: rotate(45deg);
         }
 
@@ -102,12 +132,16 @@
             &::before {
                 top: calc(30% - rem(1));
                 left: 0;
+                -webkit-transform: rotate(-30deg);
+                -ms-transform: rotate(-30deg);
                 transform: rotate(-30deg);
                 width: 50%;
             }
             &::after {
                 bottom: calc(25% - rem(1));
                 left: 0;
+                -webkit-transform: rotate(30deg);
+                -ms-transform: rotate(30deg);
                 transform: rotate(30deg);
                 width: 50%;
             }
@@ -122,27 +156,25 @@
 //===message-list=====================================================================================================================================================
 
 .messages-list {
+    -webkit-box-flex: 1;
+    -ms-flex: 1;
     flex: 1;
     width: 100%;
     overflow-y: auto;
     overflow-x: hidden;
     padding: rem(20) rem(15) rem(0) rem(15);
     border-bottom: 2px solid $lighter-grey;
-    // .messages-list__group
-
-    &__group {
-    }
-
-    // .messages-list__item
-
-    &__item {
-    }
-    &__end {
-    }
 }
 .message {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
     flex-direction: column;
+    -webkit-box-align: start;
+    -ms-flex-align: start;
     align-items: flex-start;
     &:not(:last-child) {
         margin-bottom: rem(30);
@@ -156,7 +188,11 @@
     // .message__content-wrapper
 
     &__content-wrapper {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
         align-items: center;
         width: 100%;
         margin-bottom: rem(5);
@@ -181,17 +217,16 @@
         font-size: rem(14);
     }
 }
-.avatar {
-    // .avatar__img
-
-    &__img {
-    }
-}
 .own {
+    -webkit-box-align: end;
+    -ms-flex-align: end;
     align-items: flex-end;
 }
 .own {
     .message__content-wrapper {
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: reverse;
+        -ms-flex-direction: row-reverse;
         flex-direction: row-reverse;
     }
     .message__content {
@@ -206,6 +241,8 @@
 
 .messages-enter-active {
     opacity: 1;
+    -webkit-transition: opacity 500ms ease-in;
+    -o-transition: opacity 500ms ease-in;
     transition: opacity 500ms ease-in;
 }
 
@@ -215,6 +252,8 @@
 
 .messages-exit-active {
     opacity: 0;
+    -webkit-transition: opacity 0ms;
+    -o-transition: opacity 0ms;
     transition: opacity 0ms;
 }
 
@@ -223,6 +262,7 @@
 .message-input {
     width: 100%;
     padding: rem(25);
+    -ms-flex-negative: 0;
     flex-shrink: 0;
 }
 .message-input-wrapper {
@@ -236,6 +276,18 @@
     height: rem(55);
     border-radius: rem(22);
     border: 1px solid $lighter-grey;
+    &:focus::-webkit-input-placeholder {
+        color: transparent;
+    }
+    &:focus::-moz-placeholder {
+        color: transparent;
+    }
+    &:focus:-ms-input-placeholder {
+        color: transparent;
+    }
+    &:focus::-ms-input-placeholder {
+        color: transparent;
+    }
     &:focus::placeholder {
         color: transparent;
     }
@@ -244,6 +296,8 @@
     position: absolute;
     top: 50%;
     right: 2%;
+    -webkit-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
     font-size: rem(25);
     cursor: pointer;

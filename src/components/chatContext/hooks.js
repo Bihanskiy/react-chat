@@ -79,18 +79,6 @@ export const useSetAllMessages = () => {
     return setAllMessages;
 };
 
-export const useCountNewMessage = () => {
-    const { countNewMessages } = useChatContext();
-
-    return countNewMessages;
-}
-
-export const useSetCountNewMessages = () => {
-    const { setCountNewMessages } = useChatContext();
-
-    return setCountNewMessages;
-}
-
 export const useGetLastMessage = () => {
     const messagesData = useGetAllMessages();
     return (id) => {
@@ -115,39 +103,36 @@ export const useGetLastMessage = () => {
 
 export const useAddMessage = () => {
     const setMessages = useSetAllMessages();
+    const setActiveContactId = useSetActiveContactId();
 
-    function newMessage(oldAllMessages, id, newMessage) {
-        return { ...oldAllMessages, [id]: [...oldAllMessages[id], newMessage] }
-    }
-
-    return (text, type, id) => {
+    return function (text, type, id) {
+        // getting a current id
+        let actualId;
+        setActiveContactId(activeContactId => {
+            actualId = activeContactId;
+            return activeContactId
+        })
+        // creating a new message
         const message = {
             text,
             id: uuidv4(),
             type,
             time: Date.now(),
-            read: true,
+            read: actualId === id
         }
-        if (type === "received") message.read = false;
 
-        setMessages((allMessages) => newMessage(allMessages, id, message));
-
+        setMessages((allMessages) => ({ ...allMessages, [id]: [...allMessages[id], message] }));
     }
 }
 
-export const useViewUnreadMessages = () => {
+export const useSetAllMessagesActive = () => {
     const allMessages = useGetAllMessages();
     const setMessages = useSetAllMessages();
-
     return (id) => {
-        const viewMessages = allMessages[id].map(message => {
-            if (message.read = true) return message;
-            return {
-                ...message,
-                ["read"]: true
-            }
-        });
-
+        const viewMessages = allMessages[id].map(message => ({
+            ...message,
+            read: true
+        }))
         setMessages((allMessages) => ({ ...allMessages, [id]: [...viewMessages] }))
     }
 }

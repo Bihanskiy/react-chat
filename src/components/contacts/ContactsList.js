@@ -16,7 +16,7 @@ const ContactsList = () => {
         return contactsList.filter(item => item.name.toLowerCase().includes(deferredValue.toLowerCase()));
     }, [deferredValue, contactsList])
 
-    const renderContactsList = (arr) => { 
+    const renderContactsList = (arr) => {
         if (arr.length === 0) {
             return (
                 <CSSTransition
@@ -33,11 +33,11 @@ const ContactsList = () => {
                     key={id}
                     timeout={100}
                     classNames="contacts">
-                    <ContactItem {...ContactInformation} id={id} />
+                    <ContactItem {...ContactInformation} contactId={id} />
                 </CSSTransition>
             )
         })
-    }
+    };
 
     const contacts = renderContactsList(filteredContacts);
     return (
@@ -48,5 +48,7 @@ const ContactsList = () => {
         </div>
     )
 }
+
+
 
 export default ContactsList;

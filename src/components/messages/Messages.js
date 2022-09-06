@@ -13,7 +13,7 @@ function Messages() {
     const allContacts = useAllContacts();
     const activeContactId = useActiveContactId();
 
-    const addMessage = useAddMessage();
+    const addMessage = useAddMessage(activeContactId);
 
     const openBurger = useGetOpenBurger();
     const setOpenBurger = useSetOpenBurger();
