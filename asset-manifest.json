@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/react-chat/static/css/main.82ce104c.css",
+    "main.css": "/react-chat/static/css/main.d1ffbd00.css",
     "main.js": "/react-chat/static/js/main.6d4105f1.js",
     "static/media/error.gif": "/react-chat/static/media/error.b52e9354519ff3abce32.gif",
     "static/media/photo-2.jpg": "/react-chat/static/media/photo-2.9bc6419e1a2579f2d5eb.jpg",
@@ -11,11 +11,11 @@
     "static/media/icons.woff?csuvdr": "/react-chat/static/media/icons.60eafc47b932568a4d15.woff",
     "static/media/icons.ttf?csuvdr": "/react-chat/static/media/icons.74d502875bef9666193c.ttf",
     "index.html": "/react-chat/index.html",
-    "main.82ce104c.css.map": "/react-chat/static/css/main.82ce104c.css.map",
+    "main.d1ffbd00.css.map": "/react-chat/static/css/main.d1ffbd00.css.map",
     "main.6d4105f1.js.map": "/react-chat/static/js/main.6d4105f1.js.map"
   },
   "entrypoints": [
-    "static/css/main.82ce104c.css",
+    "static/css/main.d1ffbd00.css",
     "static/js/main.6d4105f1.js"
   ]
 }
