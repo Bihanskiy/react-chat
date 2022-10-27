@@ -8,7 +8,7 @@ import ContactsList from './ContactsList.js';
 function Contacts() {
     const navigate = useNavigate();
 
-    const {userData} = getDataFromStorage();
+    const { userData } = getDataFromStorage();
     const logout = useLogout();
 
     const nameSearch = useNameSearch();
@@ -25,6 +25,7 @@ function Contacts() {
 
     return (
         <div className='left-column'>
+            mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
             <div className='left-column__main left-main'>
                 <div className="left-main__header left-header">
                     <div className="left-header__container">
