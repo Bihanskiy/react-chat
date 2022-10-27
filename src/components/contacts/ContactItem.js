@@ -48,6 +48,7 @@ function ContactItem(props) {
 
     return (
         <div className="chat-list__item list-item">
+        asd asd asd asd asd
             <div className="list-item__button" role="button" tabIndex="0" onClick={handlerClick} >
                 <div className='avatar'>
                     <img src={avatarImg} alt="Avatar of chat item" className='avatar__img' />
