@@ -54,6 +54,7 @@ function Messages() {
 
     return (
         <div className="right-column">
+        <div>jsdoijsdijsdofjdsio</div>
             <div className="messages-layout">
                 <div className="messages-layout__header layout-header">
                     {/* head */}
