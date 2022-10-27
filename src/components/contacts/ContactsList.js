@@ -43,6 +43,11 @@ const ContactsList = () => {
     return (
         <div className="chat-list__container">
             <div>dfkdofspfdpofdsopfdsposfd</div>
+            <div>dfkdofspfdpofdsopfdsposfd</div>
+            <div>dfkdofspfdpofdsopfdsposfd</div>
+            <div>dfkdofspfdpofdsopfdsposfd</div>
+            <div>dfkdofspfdpofdsopfdsposfd</div>
+            <div>dfkdofspfdpofdsopfdsposfd</div>
             <TransitionGroup component="div">
                 {contacts}
             </TransitionGroup>
