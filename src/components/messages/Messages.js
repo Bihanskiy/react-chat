@@ -56,11 +56,16 @@ function Messages() {
         <div className="right-column">
         <div>jsdoijsdijsdofjdsio</div>
             <div className="messages-layout">
+            a
+            a
+            a
             fff
                 <div className="messages-layout__header layout-header">
+                b b b b b b b b b b
                 ggg
                     {/* head */}
                     <div className="layout-header__info">
+                    c c c c c c c c c c c c c
                         <div className="layout-header__menu menu">
                             <button
                                 type="button"
