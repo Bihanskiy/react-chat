@@ -67,6 +67,7 @@ function Messages() {
                     <div className="layout-header__info">
                     c c c c c c c c c c c c c
                         <div className="layout-header__menu menu">
+                        1 1 1 1 1 1 1 1
                             <button
                                 type="button"
                                 className="menu__icon icon-menu"
