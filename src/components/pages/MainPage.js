@@ -8,6 +8,7 @@ function MainPage() {
 
     return (
         <div className="app">
+            wer
             <div className={"wrapper " + (openBurger ? 'left-column-open' : "")}>
                 <Contacts />
                 {activeContactId ? <Messages /> : null}
