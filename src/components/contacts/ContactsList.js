@@ -42,6 +42,7 @@ const ContactsList = () => {
     const contacts = renderContactsList(filteredContacts);
     return (
         <div className="chat-list__container">
+            <div>dfkdofspfdpofdsopfdsposfd</div>
             <TransitionGroup component="div">
                 {contacts}
             </TransitionGroup>
