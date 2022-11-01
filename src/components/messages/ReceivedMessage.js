@@ -7,6 +7,7 @@ function MessageComponents({ text, time, avatarImg }) {
             <div className="message__content-wrapper">
                 <div className='message__avatar avatar'>
                     <img src={avatarImg} alt="User's avatar" className='avatar__img' />
+                ttttt
                 </div>
                 <p className="message__content">{text}</p>
             </div>
