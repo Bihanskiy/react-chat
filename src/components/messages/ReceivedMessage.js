@@ -10,6 +10,7 @@ function MessageComponents({ text, time, avatarImg }) {
                 ttttt
                 </div>
                 <p className="message__content">{text}</p>
+                jjj
             </div>
             <div className="message__time">{getConvertedTimeMessage(time)}</div>
         </div>
