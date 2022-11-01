@@ -10,6 +10,7 @@ function OwnMessageComponents({ text, time }) {
             <div className="message__content-wrapper">
                 <p className="message__content">{text}</p>
                 llllllll
+                sssssssssssssss
             </div>
             <div className="message__time">{getConvertedTimeMessage(time)}</div>
         </div>
