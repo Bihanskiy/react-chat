@@ -25,7 +25,6 @@ function Contacts() {
 
     return (
         <div className='left-column'>
-            mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm
             <div className='left-column__main left-main'>
                 <div className="left-main__header left-header">
                     <div className="left-header__container">
